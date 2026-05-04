@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS MATH — Тест</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- KaTeX -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+  />
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js">
+  </script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js">
+  </script>
+</head>
+<body>
+  <main class="page-wrap">
+    <div class="container test-shell">
+      <div class="test-topbar">
+        <a class="brand-link" href="index.html">← EMS MATH</a>
+        <a class="back-link" href="index.html#catalog">К каталогу</a>
+      </div>
+
+      <section class="test-hero">
+        <div class="test-hero-inner">
+          <div class="test-hero-top">
+            <div class="test-hero-copy">
+              <h1 id="test-title">Загрузка теста...</h1>
+              <p id="test-description">Подготавливаем данные теста.</p>
+            </div>
+
+            <div class="test-hero-badges">
+              <span class="badge badge-light">Тест</span>
+              <span class="badge badge-light">EMS MATH</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="progress-card">
+        <div class="progress-row">
+          <span id="progress-text">Прогресс: 0%</span>
+          <span id="progress-counter">0 / 0</span>
+        </div>
+        <div class="progress-bar">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+      </section>
+
+      <section id="quiz-box">
+        <div class="question-box">
+          <div class="question-meta">
+            <span id="question-type-badge" class="badge badge-soft hidden"></span>
+            <span id="question-skill-badge" class="badge badge-soft hidden"></span>
+          </div>
+
+          <h2 id="question-number">Подготовка теста...</h2>
+
+          <div id="question-text" class="question-text">
+            Секунду, загружаем задание.
+          </div>
+
+          <div id="visual-wrapper" class="visual-card hidden">
+            <div id="visual-stage" class="visual-stage"></div>
+            <div id="visual-caption" class="visual-caption"></div>
+          </div>
+
+          <div id="answer-area" class="answer-area"></div>
+
+          <div id="explanation-box" class="explanation-box hidden"></div>
+        </div>
+      </section>
+
+      <div id="quiz-actions" class="quiz-footer-actions">
+        <button id="prev-btn" class="secondary-btn" type="button">Назад</button>
+        <button id="next-btn" class="btn" type="button">Далее</button>
+      </div>
+
+      <section id="result-box" class="hidden"></section>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

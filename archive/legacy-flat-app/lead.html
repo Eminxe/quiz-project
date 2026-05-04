@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS MATH — План подготовки</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page-wrap">
+    <div class="container lead-shell">
+      <div class="test-topbar">
+        <a class="brand-link" href="index.html">← EMS MATH</a>
+        <a class="back-link" href="index.html#catalog">К каталогу</a>
+      </div>
+
+      <section class="lead-hero">
+        <div class="lead-hero-inner">
+          <div class="lead-hero-copy">
+            <div class="catalog-kicker">Следующий шаг</div>
+            <h1>План подготовки</h1>
+            <p>
+              Оставьте контакт, и вы получите понятный план: что подтянуть в первую очередь,
+              какие темы повторять и как быстрее расти без хаоса.
+            </p>
+          </div>
+
+          <div class="lead-hero-side">
+            <div class="lead-mini-card">
+              <span class="lead-mini-label">Тест</span>
+              <strong id="lead-test-name">—</strong>
+            </div>
+            <div class="lead-mini-card">
+              <span class="lead-mini-label">Результат</span>
+              <strong id="lead-score-line">—</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lead-grid">
+        <article class="lead-card lead-summary-card">
+          <div class="lead-card-head">
+            <h2>Ваш результат</h2>
+            <span class="badge badge-accent">Диагностика</span>
+          </div>
+
+          <div class="lead-stats">
+            <div class="lead-stat">
+              <span class="lead-stat-value" id="lead-score">—</span>
+              <span class="lead-stat-label">правильных ответов</span>
+            </div>
+
+            <div class="lead-stat">
+              <span class="lead-stat-value" id="lead-percent">—</span>
+              <span class="lead-stat-label">точность</span>
+            </div>
+
+            <div class="lead-stat">
+              <span class="lead-stat-value" id="lead-level">—</span>
+              <span class="lead-stat-label">уровень</span>
+            </div>
+          </div>
+
+          <div class="lead-info-box">
+            <h3>Что проседает</h3>
+            <div id="lead-weak-skills" class="lead-weak-skills">
+              <span class="badge badge-light">Загрузка...</span>
+            </div>
+          </div>
+
+          <div class="lead-info-box">
+            <h3>Рекомендация</h3>
+            <p id="lead-recommendation">
+              Секунду, формируем персональную рекомендацию.
+            </p>
+          </div>
+        </article>
+
+        <article class="lead-card lead-form-card">
+          <div class="lead-card-head">
+            <h2>Оставить контакт</h2>
+            <span class="badge badge-dark">EMS MATH</span>
+          </div>
+
+          <form id="lead-form" class="lead-form" autocomplete="on">
+            <div class="lead-field">
+              <label class="input-label" for="lead-name">Имя</label>
+              <input
+                id="lead-name"
+                class="answer-input lead-input"
+                type="text"
+                placeholder="Например: Анна"
+              />
+            </div>
+
+            <div class="lead-field">
+              <label class="input-label" for="lead-contact">Контакт</label>
+              <input
+                id="lead-contact"
+                class="answer-input lead-input"
+                type="text"
+                placeholder="@telegram / телефон / email"
+              />
+            </div>
+
+            <div class="lead-field">
+              <label class="input-label" for="lead-goal">Цель</label>
+              <textarea
+                id="lead-goal"
+                class="lead-textarea"
+                placeholder="Например: поднять уровень по вероятности и алгебре за 2 месяца"
+              ></textarea>
+            </div>
+
+            <div class="lead-actions">
+              <button id="lead-send-btn" class="btn" type="button">Открыть Telegram</button>
+              <button id="lead-copy-btn" class="secondary-btn" type="button">Скопировать текст</button>
+            </div>
+
+            <div class="lead-note" id="lead-note">
+              Мы сформируем готовый текст заявки с вашими результатами и целью подготовки.
+            </div>
+          </form>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <script src="lead.js"></script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMS MATH</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero hero-home">
+    <div class="container hero-inner">
+      <div class="hero-sub">EMS MATH · тесты · генерация · рост</div>
+
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>EMS MATH</h1>
+          <p>
+            Генерация математических тестов под тему, язык, формат экзамена,
+            типы заданий и диагностическую цель.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn" href="#catalog">Каталог</a>
+            <a class="ghost-btn hero-ghost" href="#generator-panel">Генератор</a>
+            <a class="ghost-btn hero-ghost" href="#generator-panel">Собрать свой вариант</a>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <div class="hero-side-card">
+            <span class="hero-side-label">Что уже работает</span>
+            <strong id="hero-tests-count">Каталог и генерация</strong>
+            <span class="hero-side-text">Новые тесты, визуализации, интерактивное прохождение и диагностика.</span>
+          </div>
+
+          <div class="hero-side-card">
+            <span class="hero-side-label">Форматы</span>
+            <strong>Custom · ОГЭ · ЕГЭ · SAT · GCSE · IB · MaxB</strong>
+            <span class="hero-side-text">База для локальных и международных траекторий подготовки.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-math-bg" aria-hidden="true">
+        <span>P(A)=m/n</span>
+        <span>x²+y²=r²</span>
+        <span>∫f(x)dx</span>
+        <span>lim f(x)</span>
+        <span>sin²x+cos²x=1</span>
+        <span>aₙ=qⁿ⁻¹</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <section class="container generator-section" id="generator-panel">
+      <div class="section-head">
+        <div>
+          <div class="catalog-kicker">EMS MATH · генерация</div>
+          <h2>Собрать новый тест</h2>
+          <p>
+            Здесь уже не просто форма “тема + уровень”, а полноценный конструктор:
+            язык, формат, цель, количество вопросов, типы заданий и глубина объяснений.
+          </p>
+        </div>
+      </div>
+
+      <div class="generator-grid">
+        <article class="generator-card">
+          <div class="generator-card-head">
+            <h3>Параметры генерации</h3>
+            <span class="badge badge-accent">Beta</span>
+          </div>
+
+          <form id="generator-form" class="generator-form">
+            <div class="generator-form-grid">
+              <div class="generator-field">
+                <label class="input-label" for="gen-topic">Тема</label>
+                <input
+                  id="gen-topic"
+                  class="answer-input"
+                  type="text"
+                  placeholder="Например: Тригонометрические уравнения"
+                  required
+                />
+              </div>
+
+              <div class="generator-field">
+                <label class="input-label" for="gen-subtopic">Подтема</label>
+                <input
+                  id="gen-subtopic"
+                  class="answer-input"
+                  type="text"
+                  placeholder="Например: двойной угол / основные формулы"
+                />
+              </div>
+
+              <div class="generator-field">
+                <label class="input-label" for="gen-language">Язык</label>
+                <select id="gen-language" class="answer-input" required>
+                  <option value="ru" selected>Русский</option>
+                  <option value="en">English</option>
+                </select>
+              </div>
+
+              <div class="generator-field">
+                <label class="input-label" for="gen-format">Формат</label>
+                <select id="gen-format" class="answer-input" required>
+                  <option value="custom" selected>Custom</option>
+                  <option value="oge">ОГЭ</option>
+                  <option value="ege">ЕГЭ</option>
+                  <option value="sat">SAT</option>
+                  <option value="gcse">GCSE</option>
+                  <option value="ib">IB</option>
+                  <option value="maxb">MaxB</option>
+                </select>
+              </div>
+
+              <div class="generator-field">
+                <label class="input-label" for="gen-level">Уровень</label>
+                <select id="gen-level" class="answer-input" required>
+                  <option value="">Выбери уровень</option>
+                  <option value="Базовый">Базовый</option>
+                  <option value="Средний">Средний</option>
+                  <option value="Продвинутый">Продвинутый</option>
+                </select>
+              </div>
+
+              <div class="generator-field">
+                <label class="input-label" for="gen-questions">Количество вопросов</label>
+                <input
+                  id="gen-questions"
+                  class="answer-input"
+                  type="number"
+                  min="1"
+                  max="30"
+                  step="1"
+                  value="8"
+                  required
+                />
+              </div>
+
+              <div class="generator-field">
+                <label class="input-label" for="gen-goal">Цель</label>
+                <select id="gen-goal" class="answer-input" required>
+                  <option value="diagnostic" selected>Диагностика</option>
+                  <option value="training">Тренировка</option>
+                  <option value="revision">Повторение</option>
+                  <option value="intensive">Интенсив</option>
+                </select>
+              </div>
+
+              <div class="generator-field">
+                <label class="input-label" for="gen-tone">Стиль</label>
+                <select id="gen-tone" class="answer-input" required>
+                  <option value="exam-ready" selected>Экзаменационный</option>
+                  <option value="strict">Строгий</option>
+                  <option value="educational">Учебный</option>
+                </select>
+              </div>
+
+              <div class="generator-field">
+                <label class="input-label" for="gen-explanation-style">Глубина объяснений</label>
+                <select id="gen-explanation-style" class="answer-input" required>
+                  <option value="short">Кратко</option>
+                  <option value="detailed" selected>Подробно</option>
+                </select>
+              </div>
+
+              <div class="generator-field">
+                <label class="input-label" for="gen-visual-style">Визуальный режим</label>
+                <select id="gen-visual-style" class="answer-input" required>
+                  <option value="standard" selected>Стандарт</option>
+                  <option value="wow">WOW / выразительно</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="generator-field">
+              <label class="input-label" for="gen-audience">Аудитория</label>
+              <input
+                id="gen-audience"
+                class="answer-input"
+                type="text"
+                placeholder="Например: 9 класс / школьник / подготовка к ЕГЭ / SAT learner"
+                required
+              />
+            </div>
+
+            <div class="generator-field">
+              <label class="input-label">Типы заданий</label>
+              <div class="generator-types-grid">
+                <label class="generator-type-check">
+                  <input type="checkbox" name="gen-types" value="single" checked />
+                  <span>Single choice</span>
+                </label>
+
+                <label class="generator-type-check">
+                  <input type="checkbox" name="gen-types" value="numeric" checked />
+                  <span>Numeric</span>
+                </label>
+
+                <label class="generator-type-check">
+                  <input type="checkbox" name="gen-types" value="short_text" checked />
+                  <span>Short text</span>
+                </label>
+
+                <label class="generator-type-check">
+                  <input type="checkbox" name="gen-types" value="find_error" checked />
+                  <span>Find error</span>
+                </label>
+
+                <label class="generator-type-check">
+                  <input type="checkbox" name="gen-types" value="order_steps" checked />
+                  <span>Order steps</span>
+                </label>
+              </div>
+              <p class="generator-help">
+                Можно оставить все типы или собрать тест только из нужных форматов.
+              </p>
+            </div>
+
+            <div class="generator-actions">
+              <button id="gen-submit" class="btn" type="submit">Сгенерировать тест</button>
+              <button id="gen-reset" class="secondary-btn" type="button">Сбросить</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="generator-card generator-side-card">
+          <div class="generator-card-head">
+            <h3>Что делает генератор</h3>
+            <span class="badge badge-dark">Live</span>
+          </div>
+
+          <div class="generator-mini-list">
+            <div class="generator-mini-box">
+              <strong>Подстраивает формат</strong>
+              <span>Custom, ОГЭ, ЕГЭ, SAT, GCSE, IB, MaxB.</span>
+            </div>
+
+            <div class="generator-mini-box">
+              <strong>Делает диагностику</strong>
+              <span>Тест нужен не “для галочки”, а чтобы понять, что ученик помнит, а что нет.</span>
+            </div>
+
+            <div class="generator-mini-box">
+              <strong>Добавляет визуальный слой</strong>
+              <span>Каждый вопрос получает image или video-visual через Manim-архитектуру.</span>
+            </div>
+          </div>
+
+          <div id="generator-status" class="generator-status generator-status-idle">
+            <strong>Готов к генерации</strong>
+            <span>Выбери параметры теста и запусти сборку нового варианта.</span>
+          </div>
+
+          <div id="generator-result" class="generator-result hidden"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="container section-anchor" id="catalog">
+      <div class="catalog-mount" id="catalog-root"></div>
+    </section>
+  </main>
+
+  <script src="catalog.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>

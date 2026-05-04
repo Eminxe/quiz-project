@@ -1,0 +1,20 @@
+{
+  "name": "@ems/api",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "node --watch src/main.js"
+  },
+  "dependencies": {
+    "@ems/db": "workspace:*",
+    "@ems/exam-presets": "workspace:*",
+    "@ems/observability": "workspace:*",
+    "@ems/queue": "workspace:*",
+    "@ems/validation": "workspace:*",
+    "@fastify/cors": "^10.0.1",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.1.0",
+    "zod": "^3.23.8"
+  }
+}

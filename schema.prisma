@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum JobStatus {
+  QUEUED
+  RUNNING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum JobType {
+  TEST_GENERATION
+  VISUAL_GENERATION
+  REPAIR
+}
+
+enum TestStatus {
+  DRAFT
+  READY
+  ARCHIVED
+  FAILED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  role      UserRole @default(STUDENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  generationJobs GenerationJob[]
+  tests          Test[]
+  attempts       Attempt[]
+}
+
+model GenerationJob {
+  id            String    @id @default(cuid())
+  userId        String
+  type          JobType
+  status        JobStatus @default(QUEUED)
+  inputPayload  Json
+  resultPayload Json?
+  errorMessage  String?
+  startedAt     DateTime?
+  finishedAt    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@index([type])
+}
+
+model Test {
+  id         String     @id @default(cuid())
+  authorId   String
+  title      String
+  subject    String
+  examFormat String
+  difficulty String
+  language   String
+  status     TestStatus @default(DRAFT)
+  sourceType String
+  version    Int        @default(1)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  author    User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  questions Question[]
+  attempts  Attempt[]
+
+  @@index([authorId])
+}
+
+model Question {
+  id         String   @id @default(cuid())
+  testId     String
+  orderIndex Int
+  type       String
+  prompt     String
+  solution   String?
+  answerJson Json?
+  createdAt  DateTime @default(now())
+
+  test Test @relation(fields: [testId], references: [id], onDelete: Cascade)
+
+  attemptAnswers AttemptAnswer[]
+
+  @@unique([testId, orderIndex])
+  @@index([testId])
+}
+
+model Attempt {
+  id          String    @id @default(cuid())
+  userId      String
+  testId      String
+  status      String
+  score       Float?
+  startedAt   DateTime  @default(now())
+  submittedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  test Test @relation(fields: [testId], references: [id], onDelete: Cascade)
+
+  answers AttemptAnswer[]
+
+  @@index([userId])
+  @@index([testId])
+}
+
+model AttemptAnswer {
+  id         String   @id @default(cuid())
+  attemptId  String
+  questionId String
+  valueJson  Json
+  isCorrect  Boolean
+  score      Float    @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  attempt  Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, questionId])
+  @@index([attemptId])
+  @@index([questionId])
+}
