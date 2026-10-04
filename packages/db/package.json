@@ -1,0 +1,19 @@
+{
+  "name": "@ems/db",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "generate": "node scripts/prisma.js generate",
+    "migrate": "node scripts/prisma.js migrate deploy",
+    "migrate:dev": "node scripts/prisma.js migrate dev",
+    "seed": "node scripts/seed-demo-user.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "prisma": "^6.19.3"
+  }
+}

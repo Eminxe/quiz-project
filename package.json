@@ -1,20 +1,17 @@
 {
-  "name": "@ems/api",
+  "name": "ems-math",
   "version": "0.1.0",
   "private": true,
-  "main": "src/main.js",
+  "packageManager": "pnpm@10.28.0",
   "scripts": {
-    "dev": "node --watch src/main.js"
-  },
-  "dependencies": {
-    "@ems/db": "workspace:*",
-    "@ems/exam-presets": "workspace:*",
-    "@ems/observability": "workspace:*",
-    "@ems/queue": "workspace:*",
-    "@ems/validation": "workspace:*",
-    "@fastify/cors": "^10.0.1",
-    "dotenv": "^16.4.7",
-    "fastify": "^5.1.0",
-    "zod": "^3.23.8"
+    "infra:up": "docker compose -f infra/compose/docker-compose.dev.yml up -d",
+    "db:generate": "pnpm --filter @ems/db generate",
+    "db:migrate": "pnpm --filter @ems/db migrate",
+    "db:seed": "pnpm --filter @ems/db seed",
+    "dev:api": "pnpm --filter @ems/api dev",
+    "dev:worker": "pnpm --filter @ems/worker-generation dev",
+    "dev:web": "pnpm --filter @ems/web dev",
+    "build:web": "pnpm --filter @ems/web build",
+    "test": "node --test tests/*.test.js"
   }
 }

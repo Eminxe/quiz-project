@@ -1,0 +1,128 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pass",
+    "globalIssues",
+    "questionReports"
+  ],
+  "properties": {
+    "pass": {
+      "type": "boolean"
+    },
+    "globalIssues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "severity",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "warning",
+              "error",
+              "fatal"
+            ]
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "questionReports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "index",
+          "pass",
+          "status",
+          "singleChoiceStatus",
+          "visualStatus",
+          "issues",
+          "repairStrategy",
+          "recommendedAction"
+        ],
+        "properties": {
+          "index": {
+            "type": "integer",
+            "description": "Zero-based question index."
+          },
+          "pass": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "repairable",
+              "regenerate"
+            ]
+          },
+          "singleChoiceStatus": {
+            "type": "string",
+            "enum": [
+              "not_applicable",
+              "pass",
+              "repairable",
+              "regenerate"
+            ]
+          },
+          "visualStatus": {
+            "type": "string",
+            "enum": [
+              "not_applicable",
+              "pass",
+              "repairable",
+              "regenerate"
+            ]
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "code",
+                "severity",
+                "message"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "severity": {
+                  "type": "string",
+                  "enum": [
+                    "warning",
+                    "error",
+                    "fatal"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "repairStrategy": {
+            "type": "string"
+          },
+          "recommendedAction": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
