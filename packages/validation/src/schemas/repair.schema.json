@@ -1,0 +1,165 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "questions"
+  ],
+  "properties": {
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "orderIndex",
+          "examTaskNumber",
+          "type",
+          "prompt",
+          "options",
+          "correct",
+          "answer",
+          "solution",
+          "solutionBlocks",
+          "diagnosticTags",
+          "pedagogyIntent",
+          "visualBlueprint"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "orderIndex": {
+            "type": "integer"
+          },
+          "examTaskNumber": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "single_choice",
+              "numeric",
+              "short_text",
+              "full_solution"
+            ]
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "options": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "correct": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "Zero-based index of the correct option for single_choice, otherwise null."
+          },
+          "answer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "value",
+              "display",
+              "accepted",
+              "tolerance"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "display": {
+                "type": "string"
+              },
+              "accepted": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "tolerance": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            }
+          },
+          "solution": {
+            "type": "string"
+          },
+          "solutionBlocks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "diagnosticTags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "pedagogyIntent": {
+            "type": "string"
+          },
+          "visualBlueprint": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "template",
+                  "mode",
+                  "caption",
+                  "alt",
+                  "paramsJson"
+                ],
+                "properties": {
+                  "template": {
+                    "type": "string"
+                  },
+                  "mode": {
+                    "type": "string",
+                    "enum": [
+                      "image",
+                      "video"
+                    ]
+                  },
+                  "caption": {
+                    "type": "string"
+                  },
+                  "alt": {
+                    "type": "string"
+                  },
+                  "paramsJson": {
+                    "type": "string",
+                    "description": "Template parameters serialized as a JSON object string."
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

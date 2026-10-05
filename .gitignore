@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.*
+!.env.example
+dist/
+.venv/
+__pycache__/
+apps/worker-generation/assets/generated/
+apps/worker-generation/media/
+*.log
