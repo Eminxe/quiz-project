@@ -6,6 +6,23 @@ const {
 } = require("@ems/db");
 const { enqueueGenerationJob, JOB_TYPES } = require("@ems/queue");
 const { getExamPresetCatalog } = require("@ems/exam-presets");
+const { hasGenerator } = require("@ems/task-generators");
+
+// Marks the exam numbers that the template engine can generate.
+function buildPresetCatalog() {
+  const catalog = getExamPresetCatalog();
+
+  return {
+    ...catalog,
+    exams: catalog.exams.map((exam) => ({
+      ...exam,
+      tasks: exam.tasks.map((task) => ({
+        ...task,
+        hasGenerator: hasGenerator(exam.examType, task.taskNumber)
+      }))
+    }))
+  };
+}
 
 const generationInputSchema = z.object({
   subject: z.string().min(1).default("math"),
@@ -26,7 +43,8 @@ const generationInputSchema = z.object({
   style: z.string().optional(),
   goal: z.string().optional(),
   timeLimitMinutes: z.number().int().positive().nullable().optional(),
-  engine: z.enum(["mock", "ai"]).default("mock")
+  engine: z.enum(["template", "mock", "ai"]).default("template"),
+  seed: z.union([z.string().min(1).max(64), z.number().int()]).optional()
 }).passthrough();
 
 const createGenerationJobSchema = z.object({
@@ -44,7 +62,7 @@ async function generationRoutes(app) {
  app.get("/presets", async () => {
   return {
     ok: true,
-    catalog: getExamPresetCatalog(),
+    catalog: buildPresetCatalog(),
   };
   });
   app.post("/jobs", async (request, reply) => {

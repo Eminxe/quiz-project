@@ -40,7 +40,7 @@ const DEFAULT_GENERATION_FORM = {
   visuals: false,
   style: "exam_like",
   goal: "practice",
-  engine: "mock"
+  engine: "template"
 };
 
 const TOPIC_OPTIONS = [
@@ -309,11 +309,18 @@ function GenerationPanel({
     ? selectedExam?.questionCount || form.questionCount
     : form.questionCount;
 
+  const isTemplateEngine = form.engine === "template";
+  const generatorTasks = tasks.filter((task) => task.hasGenerator);
+  const templateUnavailable =
+    isTemplateEngine &&
+    (isExamMode ? generatorTasks.length === 0 : !selectedTask?.hasGenerator);
+
   const canGenerate =
     !generationLoading &&
     !presetLoading &&
     selectedExam &&
-    (isExamMode || selectedTask);
+    (isExamMode || selectedTask) &&
+    !templateUnavailable;
 
   return (
     <section className="card generationPanel">
@@ -404,6 +411,7 @@ function GenerationPanel({
             >
               {tasks.map((task) => (
                 <option key={task.taskNumber} value={task.taskNumber}>
+                  {task.hasGenerator ? "✓ " : ""}
                   {task.title} · {task.answerType}
                 </option>
               ))}
@@ -452,6 +460,7 @@ function GenerationPanel({
             value={form.engine}
             onChange={(event) => onChange("engine", event.target.value)}
           >
+            <option value="template">Генератор (без AI)</option>
             <option value="ai">AI</option>
             <option value="mock">Mock / тестовый</option>
           </select>
@@ -470,6 +479,20 @@ function GenerationPanel({
             <span>{selectedTask.responseMode}</span>
             <span>{getDifficultyLabel(selectedTask.difficulty)}</span>
           </div>
+        </div>
+      ) : null}
+
+      {isTemplateEngine ? (
+        <div className="selectedTaskHint">
+          <p>
+            {templateUnavailable
+              ? "Для этого номера генератора пока нет: выберите номер с ✓ или движок AI."
+              : isExamMode
+                ? `Вариант соберётся из номеров с генераторами: ${generatorTasks
+                    .map((task) => task.taskNumber)
+                    .join(", ")}. Ответы вычисляются программой.`
+                : "Задания создаются по шаблону, ответ вычисляет программа. Каждый запуск даёт новый набор."}
+          </p>
         </div>
       ) : null}
 
@@ -565,7 +588,10 @@ function AttemptView({
       <div className="questions">
         {runtimeTest.questions.map((question) => (
           <div key={question.id} className="question">
-            <div className="questionTitle">Задание {question.orderIndex}</div>
+            <div className="questionTitle">
+              Задание {question.orderIndex}
+              {question.examTaskNumber ? ` · №${question.examTaskNumber}` : ""}
+            </div>
 
             <p className="questionPrompt">
               <MathText>{question.prompt}</MathText>
@@ -863,7 +889,8 @@ function toggleGenerationTaskType(taskType) {
     // The AI pipeline (draft, critic, up to 3 repair rounds, visuals) can take
     // several minutes, so poll for up to 15 minutes instead of 2.
     for (let i = 0; i < 180; i += 1) {
-      await sleep(5000);
+      // Template generation finishes in under a second; AI takes minutes.
+      await sleep(i < 5 ? 1000 : 5000);
       const data = await getGenerationJob(created.jobId);
       job = data.job;
 

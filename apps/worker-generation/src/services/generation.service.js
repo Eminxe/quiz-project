@@ -12,6 +12,11 @@ const { runRepair } = require("../pipeline/runRepair");
 const { repairQuestionCount } = require("../pipeline/repairQuestionCount");
 const { finalizeTestVisuals } = require("../pipeline/finalizeTest");
 const { resolveGenerationProfile } = require("@ems/exam-presets");
+const {
+  hasGenerator,
+  generatePracticeSet,
+  generateVariant
+} = require("@ems/task-generators");
 
 function normalizeDifficulty(value) {
   const normalized = String(value || "").toLowerCase().trim();
@@ -101,8 +106,11 @@ function normalizeGenerationInput(inputPayload = {}) {
       ? Number(inputPayload.timeLimitMinutes)
       : null,
     engine: String(
-      inputPayload.engine || process.env.GENERATION_ENGINE || "mock"
-    ).toLowerCase()
+      inputPayload.engine || process.env.GENERATION_ENGINE || "template"
+    ).toLowerCase(),
+    seed: inputPayload.seed
+      ? String(inputPayload.seed)
+      : String(Math.floor(Math.random() * 1e6))
   };
 
   const profile = resolveGenerationProfile(base);
@@ -301,11 +309,65 @@ STRICT ANSWER CONSISTENCY RULES:
   };
 }
 
+// Template engine: tasks come from code generators, every answer is computed
+// by the program, so no critic or repair round is needed.
+function generateTemplateTest(input) {
+  const examType = input.examType;
+  const profile = input.generationProfile || {};
+  let questions;
+  let title;
+
+  if (input.mode === "exam") {
+    questions = generateVariant({ examType, seed: input.seed });
+    title = `${profile.title || "Вариант"} · вариант ${input.seed}`;
+  } else {
+    if (!hasGenerator(examType, input.examTaskNumber)) {
+      throw new Error(
+        `Для номера ${input.examTaskNumber} пока нет генератора. Выберите движок AI или другой номер.`
+      );
+    }
+
+    questions = generatePracticeSet({
+      examType,
+      taskNumber: input.examTaskNumber,
+      count: input.questionCount,
+      seed: input.seed
+    });
+    title = `${profile.title || `Номер ${input.examTaskNumber}`} · набор ${input.seed}`;
+  }
+
+  if (questions.length === 0) {
+    throw new Error(`Для ${examType} пока нет ни одного генератора.`);
+  }
+
+  return {
+    kind: "generated_test",
+    engine: "template-generators",
+    generatedAt: new Date().toISOString(),
+    input,
+    test: {
+      title,
+      subject: input.subject,
+      topic: input.topic,
+      examFormat: examType,
+      difficulty: input.difficulty,
+      language: "ru",
+      questionCount: questions.length,
+      visuals: false,
+      questions
+    }
+  };
+}
+
 async function generateTestFromInput(inputPayload) {
   const input = normalizeGenerationInput(inputPayload);
 
   if (input.engine === "ai") {
     return generateAiTest(input);
+  }
+
+  if (input.engine === "template") {
+    return generateTemplateTest(input);
   }
 
   return generateMockTest(input);

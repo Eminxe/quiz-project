@@ -12,6 +12,7 @@
     "@ems/exam-presets": "workspace:*",
     "@ems/observability": "workspace:*",
     "@ems/queue": "workspace:*",
+    "@ems/task-generators": "workspace:*",
     "@ems/validation": "workspace:*",
     "@fastify/cors": "^10.0.1",
     "dotenv": "^16.4.7",

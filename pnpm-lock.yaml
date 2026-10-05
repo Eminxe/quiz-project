@@ -22,6 +22,9 @@ importers:
       '@ems/queue':
         specifier: workspace:*
         version: link:../../packages/queue
+      '@ems/task-generators':
+        specifier: workspace:*
+        version: link:../../packages/task-generators
       '@ems/validation':
         specifier: workspace:*
         version: link:../../packages/validation
@@ -67,6 +70,9 @@ importers:
       '@ems/queue':
         specifier: workspace:*
         version: link:../../packages/queue
+      '@ems/task-generators':
+        specifier: workspace:*
+        version: link:../../packages/task-generators
       '@ems/validation':
         specifier: workspace:*
         version: link:../../packages/validation
@@ -111,6 +117,8 @@ importers:
       ioredis:
         specifier: ^5.4.2
         version: 5.10.1
+
+  packages/task-generators: {}
 
   packages/validation:
     dependencies:
